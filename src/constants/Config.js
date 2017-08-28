@@ -3,8 +3,8 @@ const Config = {
      { id:1, name: 'home', url: '/'},
      { id:2, name: 'trending', url: '/trending'},
      { id:3, name: 'subscriptions', url: '/subscriptions'},
-     { id:4, name: 'sign in', url: '/sign-in'},
-     { id:5, name: 'library', url: '/download-cv'},
+     { id:4, name: 'library', url: '/library'},
+     { id:5, name: 'sign in', url: '/signIn'},
    ],
    social: [
      { id:1, name: 'facebook', url: 'http://facebook.com/anil6080'},
