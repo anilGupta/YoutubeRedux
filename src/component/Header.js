@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink }  from 'react-router-dom'
 import Config from '../constants/Config';
+import Auth from './Auth';
 
 const Header = () => {
   return (
@@ -18,6 +19,7 @@ const Header = () => {
           <div className="inner-nav desktop-nav">
             <ul className="clearlist">
               {Config.menu.map(({id, name, url}) => <li key={id} ><NavLink to={url} exact activeClassName={'active'} className="mn-has-sub" >{name}</NavLink></li>)}
+              <li><Auth /></li>
             </ul>
           </div>
         </div>

@@ -1,67 +1,44 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom'
+import Config from '../constants/Config';
 
 class GoogleClient extends Component {
 
-  static propTypes = {
-    callback    : PropTypes.func.isRequired,
-    appId       : PropTypes.string.isRequired,
-    scope       : PropTypes.string,
-  };
-
-  static defaultProps = {
-    scope       : 'public_profile,email',
-  };
-
   constructor(props) {
     super(props);
+    this.googleAuth = null;
+    this.client = null;
   }
 
   componentDidMount() {
-    this.window   = window;
-    this.loadSDK();
-  }
-
-  init(){
-    const { appId, xfbml, cookie, version, autoLoad } = this.props;
-    this.window.fbAsyncInit = () => {
-      this.facebook = window.FB;
-      this.facebook.init({ version: `v${version}`, appId, xfbml, cookie });
-      if (autoLoad || this.window.location.search.includes('facebookdirect')) {
-        this.facebook.getLoginStatus(this.checkLoginState);
-      }
-    };
-    this.facebook = this.facebook || window.FB;
-  }
-
-  loadSDK(){   // Load the SDK asynchronously
-    (function(d, s, id){
-      var js, gs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = 'https://apis.google.com/js/platform.js'
-      gs.parentNode.insertBefore(js, gs);
-    }(document, 'script', 'google-platform'));
   }
 
   handleAuth(e){
+    const { auth } = Config;
     e.preventDefault();
-    const { appId, scope, callback} = this.props;
-    gapi.load('auth2', function() {
-      var auth2 = gapi.auth2.init({
-        client_id: appId,
-        fetch_basic_profile: false,
-        scope: scope
-      });
-      auth2.signIn().then((googleUser) => {
-        callback({
-          accessToken: googleUser.getAuthResponse().access_token
-        }, "GL");
+    gapi.load('client:auth2', () =>{
+      window.googleClient= gapi.client;
+      this.client = gapi.client;
+      this.client.init({
+        'apiKey': auth.apiKey,
+        'clientId': auth.clientId,
+        'scope': 'https://www.googleapis.com/auth/youtube.force-ssl',
+        'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
+      }).then(()=>{
+        this.googleAuth = gapi.auth2.getAuthInstance();
+        this.googleAuth.isSignedIn.listen(this.authenticated);
+        this.googleAuth.signIn()
       });
     });
   };
 
+  authenticated(response){
+     console.log(response);
+  }
+
   render() {
-    return <span><a onClick={::this.handleAuth} ><i className="icon-gplus" /></a></span>;
+    return <span><NavLink to="#" onClick={::this.handleAuth} ><i className="icon-gplus" /> Sign In</NavLink></span>;
   }
 }
 

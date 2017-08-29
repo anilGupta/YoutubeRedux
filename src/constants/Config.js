@@ -11,7 +11,12 @@ const Config = {
      { id:2, name: 'github', url: 'https://github.com/anilGupta'},
      { id:3, name: 'stack overflow', url: 'https://stackoverflow.com/users/1353052/anil-gupta'},
      { id:4, name: 'twitter', url: 'https://twitter.com/__anilGupta'},
-   ]
+   ],
+   auth: {
+     apiKey: 'AIzaSyBsRRw8pfjCYWw172iu_DWNhqr0bLT8pVs',
+     clientId: '790601148311-i7tblnnrepubh3ko3ruogn71s993cqja.apps.googleusercontent.com',
+     clientSecret: '3ZWyIMKXpiv8bW0Rqayd9zVM'
+   }
 };
 
 export default Config;
