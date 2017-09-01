@@ -4,7 +4,7 @@ const Config = {
      { id:2, name: 'trending', url: '/trending'},
      { id:3, name: 'subscriptions', url: '/subscriptions'},
      { id:4, name: 'library', url: '/library'},
-     { id:5, name: 'sign in', url: '/signIn'},
+     /*{ id:5, name: 'sign in', url: '/signIn'},*/
    ],
    social: [
      { id:1, name: 'facebook', url: 'http://facebook.com/anil6080'},
